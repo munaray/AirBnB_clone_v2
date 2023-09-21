@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/adeptschneiderthedev/.miniconda3/envs/myenv/bin/python
 """ Console Module """
 import cmd
 import sys
@@ -118,22 +118,23 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        
+
         args_list = args.split()
         class_name = args_list[0]
 
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         kwargs_str = ' '.join(args_list[1:])
         try:
             kwargs = {}
             for arg in kwargs_str.split():
                 key, value = arg.split('=')
                 kwargs[key] = value
-        except:
-            print("** invalid format. Use 'key=value' pairs separated by spaces. **")
+        except Exception:
+            print("** invalid format. Use 'key=value' \
+                   pairs separated by spaces. **")
             return
         # Create the instance with kwargs
         new_instance = HBNBCommand.classes[class_name](**kwargs)
@@ -221,12 +222,18 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+
+            # Use DBStorage to get all objects of a class
+            for obj in storage.all(args).values():
+                print_list.append(str(obj))
+            # for k, v in storage._FileStorage__objects.items():
+            #     if k.split('.')[0] == args:
+            #         print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            # for k, v in storage._FileStorage__objects.items():
+            #     print_list.append(str(v))
+            for obj in storage.all().values():
+                print_list.append(str(obj))
 
         print(print_list)
 
@@ -334,6 +341,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

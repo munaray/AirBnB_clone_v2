@@ -10,7 +10,7 @@ from os import getenv
 import models
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
@@ -23,7 +23,7 @@ class Place(BaseModel):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
-    amenity_ids = []
+    # amenity_ids = []
 
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -37,4 +37,4 @@ class Place(BaseModel):
         self.price_by_night = kwargs.get('price_by_night', "")
         self.latitude = kwargs.get('latitude', "")
         self.longitude = kwargs.get('longitude', "")
-        self.amenity_ids = kwargs.get('amenity_ids', "")
+        #self.amenity_ids = kwargs.get('amenity_ids', "")
