@@ -14,6 +14,11 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade='all, delete, delete-orphan',
                           backref="state")
+    
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__()
+        self.name = kwargs.get('name', "")
 
     @property
     def cities(self):

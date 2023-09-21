@@ -17,3 +17,11 @@ class User(BaseModel, Base):
     last_name = Column(String(128))
     places = relationship("Place", cascade='all, delete, delete-orphan',
                           backref="user")
+    
+    def __init__(self, *args, **kwargs):
+        """initializes user"""
+        super().__init__()
+        self.email = kwargs.get('email', "")
+        self.password = kwargs.get('password', "")
+        self.first_name = kwargs.get('first_name', "")
+        self.last_name = kwargs.get('last_name', "")

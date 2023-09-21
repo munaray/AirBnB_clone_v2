@@ -23,4 +23,18 @@ class Place(BaseModel):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
+    amenity_ids = []
 
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.city_id = kwargs.get('city_id', "")
+        self.user_id = kwargs.get('user_id', "")
+        self.name = kwargs.get('name', "")
+        self.description = kwargs.get('description', "")
+        self.number_rooms = kwargs.get('number_rooms', "")
+        self.number_bathrooms = kwargs.get('number_bathrooms', "")
+        self.max_guest = kwargs.get('max_guest', "")
+        self.price_by_night = kwargs.get('price_by_night', "")
+        self.latitude = kwargs.get('latitude', "")
+        self.longitude = kwargs.get('longitude', "")
+        self.amenity_ids = kwargs.get('amenity_ids', "")
