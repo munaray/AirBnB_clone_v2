@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 def do_pack():
-    """Function to compress files"""
+    """Function to compress """
     local("mkdir -p versions")
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file = "versions/web_static_{}.tgz".format(date)
